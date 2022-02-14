@@ -3,7 +3,7 @@ import { fork } from 'child_process';
 
 jest.setTimeout(5000); // default puppeteer timeout
 
-describe('Card checker', () => {
+describe('Popover checker', () => {
   let browser = null;
   let page = null;
   let server = null;
@@ -20,9 +20,9 @@ describe('Card checker', () => {
       });
     });
     browser = await puppetteer.launch({
-      //headless: false, // show gui
-      //slowMo: 100,
-      //devtools: true, // show devTools
+      headless: false, // show gui
+      slowMo: 100,
+      devtools: true, // show devTools
     });
     page = await browser.newPage();
   });
@@ -32,10 +32,10 @@ describe('Card checker', () => {
     server.kill();
   });
 
-  test('should add .active class for popover', async () => {
+  test('should add active class for popover', async () => {
     await page.goto(baseUrl);
-    const button = await page.$('.popover');
-    button.hover();
-    await page.waitForSelector('popover active');
+    const btn = await page.$('.btn');
+    btn.click();
+    await page.waitForSelector('.active');
   });
 });
